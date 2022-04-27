@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Notes</title>
@@ -8,6 +9,8 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    Authenticated as <span sec:authentication="name"></span></div>
 <div class="container text-center">
     <h1>Spring Boot Form Demo</h1>
     <h3><a th:href="@{/users}">List of Users</a></h3>

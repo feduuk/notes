@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -8,12 +9,14 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    Authenticated as <span sec:authentication="name"></span></div>
 <div class="container text-center">
     <div>
         <form th:action="@{/logout}" method="post">
-            <p>
-                Welcome <b>[[${#request.userPrincipal.principal.FullName}]]</b>
-            </p>
+<!--            <p>-->
+<!--                Welcome <b>[[${#request.userPrincipal.principal.FullName}]]</b>-->
+<!--            </p>-->
             <input type="submit" value="Sign Out" />
         </form>
     </div>

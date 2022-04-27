@@ -29,7 +29,8 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 30)
     private String name;
 
-    //private List<Note> notes;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<Note> notes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -63,4 +64,5 @@ public class User implements UserDetails {
     public String getFullName(){
         return "@" + id + " " + name;
     }
+
 }
