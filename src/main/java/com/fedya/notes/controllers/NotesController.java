@@ -36,11 +36,7 @@ public class NotesController {
     public String showNotes(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User)authentication.getPrincipal();
-        System.out.println("-----------------");
         List<Note> notes = noteRepository.findNotesByUserId(user.getId());
-        System.out.println("-----------------");
-        System.out.println(notes);
-        System.out.println("-----------------");
         model.addAttribute("notes", notes);
         model.addAttribute("note", new Note());
         return "notes";

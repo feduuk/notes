@@ -11,12 +11,19 @@
 <body>
 <div sec:authorize="isAuthenticated()">
     Authenticated as <span sec:authentication="name"></span></div>
+<h3><a th:href="@{/}">Home page</a></h3>
 <div class="container">
     <div>
         <h1>Notes</h1>
     </div>
     <div th:each="n : ${notes}">
-        <p th:text="${n}"></p><br>
+        <form th:action="@{/refactorNote}" th:object="${obj}" method="post">
+            <p>
+                <input type="text" name="text" th:value="${n.text}">
+                <input type="hidden" name="id" th:value="${n.id}">
+                <button type="submit" class="btn btn-primary">Change</button>
+            </p>
+        </form>
     </div>
     <form th:action="@{/saveNote}" th:object="${note}" method="post">
         <div class="form-group row">

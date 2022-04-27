@@ -29,7 +29,7 @@ public class SignUpPageController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         repository.save(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 }

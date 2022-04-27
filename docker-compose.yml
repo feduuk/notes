@@ -1,0 +1,23 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    networks:
+      - demonet
+    volumes:
+      - vol:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=notes
+  notes:
+    build: .
+    networks:
+      - demonet
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+networks:
+  demonet:
+volumes:
+  vol:
