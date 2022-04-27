@@ -19,11 +19,14 @@
     <div th:each="n : ${notes}">
         <form th:action="@{/refactorNote}" th:object="${obj}" method="post">
             <p>
-                <input type="text" name="text" th:value="${n.text}">
+                <div th:text="${n.date} + ' : '"></div>
+                <textarea name="text" th:text="${n.text}" class="form-control" rows="3" ></textarea>
                 <input type="hidden" name="id" th:value="${n.id}">
                 <button type="submit" class="btn btn-primary">Change</button>
+                <button type="submit" class="btn btn-primary" formaction="/deleteNote">Delete</button>
             </p>
         </form>
+
     </div>
     <form th:action="@{/saveNote}" th:object="${note}" method="post">
         <div class="form-group row">

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -15,7 +16,13 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     public List<Note> findNotesByUserId(Long id);
 
     @Modifying
-    @Query(value = "UPDATE notes SET text = 4 WHERE id = 49"
+    @Transactional
+    @Query(value = "UPDATE notes SET text = ?2 WHERE id = ?1"
             , nativeQuery = true)
     int changeNote(Long id, String text);
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM notes WHERE id = ?1"
+            , nativeQuery = true)
+    int deleteNote(Long id);
 }

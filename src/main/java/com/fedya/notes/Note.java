@@ -18,7 +18,7 @@ public class Note {
     @GeneratedValue
     Long id;
     String text;
-    Date date;
+    Date date = new Date();
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     User user;

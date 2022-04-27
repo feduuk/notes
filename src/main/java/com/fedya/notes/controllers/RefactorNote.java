@@ -18,5 +18,10 @@ public class RefactorNote {
         noteRepository.changeNote(note.getId(), note.getText());
         return "redirect:/notes";
     }
+    @PostMapping("/deleteNote")
+    public String deleteNote(@ModelAttribute("obj") Note note, Model model){
+        noteRepository.deleteNote(note.getId());
+        return "redirect:/notes";
+    }
 
 }

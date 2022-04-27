@@ -1,9 +1,6 @@
 package com.fedya.notes.controllers;
 
-import com.fedya.notes.Note;
-import com.fedya.notes.NoteRepository;
-import com.fedya.notes.User;
-import com.fedya.notes.UserRepository;
+import com.fedya.notes.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -25,6 +23,9 @@ public class NotesController {
 
     @Autowired
     NoteRepository noteRepository;
+
+    @Autowired
+    NotesComparator notesComparator;
 
     @GetMapping(value = "/username")
     @ResponseBody
@@ -37,6 +38,7 @@ public class NotesController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User)authentication.getPrincipal();
         List<Note> notes = noteRepository.findNotesByUserId(user.getId());
+        Collections.sort(notes, notesComparator);
         model.addAttribute("notes", notes);
         model.addAttribute("note", new Note());
         return "notes";
@@ -51,6 +53,7 @@ public class NotesController {
         }
         return "redirect:/notes";
     }
+
 
 
 }
